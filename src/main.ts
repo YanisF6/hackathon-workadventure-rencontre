@@ -17,6 +17,12 @@ WA.onInit().then(() => {
         []);
     })
 
+    // WA.room.onEnterLayer('infoZone').subscribe(() => {
+    //     currentPopup = WA.ui.openPopup("infoRoomPopup",
+    //         "Welcome to Hetero\nCherry Room",
+    //     []);
+    // })
+
     WA.room.onLeaveLayer('infoZone').subscribe(closePopUp)
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
