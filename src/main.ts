@@ -80,7 +80,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-gay.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -108,7 +108,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-lesbian.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -164,7 +164,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-bi.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -192,7 +192,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-all.json');
                     ambience.stop();
                     music.stop();
                 }
