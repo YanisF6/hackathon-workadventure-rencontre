@@ -10,12 +10,50 @@ let currentPopup1 : any = undefined;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
-    console.log('Player tags: ',WA.player.tags)
+    console.log('Player tags: ',WA.player.tags);
 
-    // Popup
+    /** AUDIO */
+
+    let ambience = WA.sound.loadSound("/assets/sfx/sfx-nature_ambience.ogg");
+    let configSound = {
+        volume: 0.1,
+        loop: true,
+        rate: 1,
+        detune: 1,
+        delay: 0,
+        seek: 0,
+        mute: false
+    };
+    ambience.play(configSound);
+
+    let music = WA.sound.loadSound("/assets/sfx/easy-lemon-by-kevin-macleod-from-filmmusic-io.mp3");
+    music.play({
+        ...configSound,
+        volume: 0.2
+    });
+
+    let muted = false;
+
+    /** MENU AUDIO */
+    WA.ui.registerMenuCommand("Jouer / Couper la musique",
+    {
+        callback: () => {
+            if(!muted) {
+                ambience.stop();
+                music.stop();
+                muted = true;
+            } else {
+                ambience.play(configSound);
+                music.play({ ...configSound, volume: 0.2 });
+                muted = false;
+            }
+        }
+    })
+
+    /** INFO */
     WA.room.onEnterLayer('infoZone').subscribe(() => {
         currentPopup = WA.ui.openPopup("infoPopup",
-            "Welcome to WorkAdventure's dating map !\nEggplant: Gay\nPear : Lesbian\nApple : Hetero\nCherry: Bisexual\nTomato : I love everyone",
+            "Choisis ta porte\n\nAubergine: Gay\nPoire : Lesbienne\nPomme : Hétéro\nCerise: Bisexuel\nTomate : Tout me va",
         []);
     })
 
@@ -46,19 +84,145 @@ WA.onInit().then(() => {
         WA.room.showLayer("SegondDoorClose");
     })
 
-    // TEST SOUND (WIP)
-    var mySound = WA.sound.loadSound("Sound.ogg");
-    var config = {
-        volume : 0.5,
-        loop : false,
-        rate : 1,
-        detune : 1,
-        delay : 0,
-        seek : 0,
-        mute : false
-    }
-    mySound.play(config);
+    /** GAY */
+    WA.room.onEnterLayer('gayDoor').subscribe(() => {
+        currentPopup = WA.ui.openPopup("gayDoorPopup",
+            "Homme × Homme",
+        [
+            {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            }
+        ]);
+    })
 
+    WA.room.onLeaveLayer('gayDoor').subscribe(closePopUp);
+
+    /** LESBIAN */
+    WA.room.onEnterLayer('lesbianDoor').subscribe(() => {
+        currentPopup = WA.ui.openPopup("lesbianDoorPopup",
+            "Femme × Femme",
+        [
+            {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            }
+        ]);
+    })
+
+    WA.room.onLeaveLayer('lesbianDoor').subscribe(closePopUp);
+
+    /** HETERO */
+    WA.room.onEnterLayer('heteroDoor').subscribe(() => {
+        currentPopup = WA.ui.openPopup("heteroDoorPopup",
+            "Homme × Femme",
+        [
+            {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            }
+        ]);
+    })
+
+    WA.room.onLeaveLayer('heteroDoor').subscribe(closePopUp);
+
+    /** BISEXUAL */
+    WA.room.onEnterLayer('bisexualDoor').subscribe(() => {
+        currentPopup = WA.ui.openPopup("bisexualDoorPopup",
+            "Homme ou Femme",
+        [
+            {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            }
+        ]);
+    })
+
+    WA.room.onLeaveLayer('bisexualDoor').subscribe(closePopUp);
+
+    /** HETERO */
+    WA.room.onEnterLayer('allDoor').subscribe(() => {
+        currentPopup = WA.ui.openPopup("allDoorPopup",
+            "Tout me va",
+        [
+            {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            }
+        ]);
+    })
+
+    WA.room.onLeaveLayer('allDoor').subscribe(closePopUp);
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
