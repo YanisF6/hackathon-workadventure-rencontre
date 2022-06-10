@@ -1,20 +1,17 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
-import { bootstrapExtra, Properties } from "@workadventure/scripting-api-extra";
+import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
 let currentPopup: any = undefined;
-const map = await WA.room.getTiledMap();
-const mapProperties = new Properties(map.properties);
-const mapName = mapProperties.getString('mapName');
-const orient = mapName?.split("-").pop();
+let currentPopup1 : any = undefined;
+
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags);
-
 
     /** SOUND */
 
@@ -29,7 +26,7 @@ WA.onInit().then(() => {
         mute: false
     };
     pageFlip.play(configSound);
-    let ambience = setInterval(() => pageFlip.play(configSound), 15000);
+    setInterval(() => pageFlip.play(configSound), 15000);
 
     let music = WA.sound.loadSound("/assets/sfx/windswept-by-kevin-macleod-from-filmmusic-io.mp3");
     music.play(configSound);
@@ -41,11 +38,11 @@ WA.onInit().then(() => {
     {
         callback: () => {
             if(!muted) {
-                clearInterval(ambience);
+                pageFlip.stop();
                 music.stop();
                 muted = true;
             } else {
-                ambience = setInterval(() => pageFlip.play(configSound), 15000);
+                pageFlip.play(configSound);
                 music.play(configSound);
                 muted = false;
             }
@@ -56,14 +53,7 @@ WA.onInit().then(() => {
 
     WA.room.onEnterLayer('exitLayer').subscribe(() => {
         currentPopup = WA.ui.openPopup("exitPopup",
-            `Vous êtes dans la bibliothèque "${
-                orient === "hetero" ? "Homme × Femme"
-                : orient === "gay" ? "Homme × Homme"
-                : orient === "lesbian" ? "Femme × Femme"
-                : orient === "bi" ? "Homme ou Femme"
-                : orient === "all" ? "Tous"
-                : "???"
-            }"`,
+            "Vous êtes dans la bibliothèque \"Homme × Femme\"",
         [
             {
                 label: "Retourner à l'accueil",
@@ -78,7 +68,7 @@ WA.onInit().then(() => {
                 className: "primary",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom(`../maps/nightClub/nightClub-${orient}.json`);
+                    WA.nav.goToRoom('../maps/room.json');
                 }
             }
         ]);
@@ -86,27 +76,13 @@ WA.onInit().then(() => {
 
     WA.room.onLeaveLayer('exitLayer').subscribe(closePopUp);
 
-    /** QUESTIONS */
+	WA.room.onEnterLayer('infoZone1').subscribe(() => {
+        currentPopup1 = WA.ui.openPopup("infoRoomPopup",
+            "Welcome to Hetero Room",
+        []);
+    })
 
-    WA.room.onEnterLayer('questions/question1').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question1", "Quel est ton top 3 de tes livres préférés ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question1').subscribe(closePopUp);
-
-    WA.room.onEnterLayer('questions/question2').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question2", "Quel est le dernier livre que tu as lu ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question2').subscribe(closePopUp);
-
-    WA.room.onEnterLayer('questions/question3').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question3", "Quel est ton style de littérature ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question3').subscribe(closePopUp);
-
-    WA.room.onEnterLayer('questions/question4').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question4", "Quel est le prochain livre que tu comptes lire ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question4').subscribe(closePopUp);
+    WA.room.onLeaveLayer('infoZone1').subscribe(closePopUp1)
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
@@ -119,6 +95,13 @@ function closePopUp(){
     if (currentPopup !== undefined) {
         currentPopup.close();
         currentPopup = undefined;
+    }
+}
+
+function closePopUp1(){
+    if (currentPopup1 !== undefined) {
+        currentPopup1.close();
+        currentPopup1 = undefined;
     }
 }
 
