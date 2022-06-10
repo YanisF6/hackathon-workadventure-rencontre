@@ -58,7 +58,7 @@ WA.onInit().then(() => {
                 className: "normal",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom('../map.json#fromInside');
+                    WA.nav.goToRoom('../../map.json#fromInside');
                 }
             },
             {
@@ -66,7 +66,7 @@ WA.onInit().then(() => {
                 className: "primary",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom('./maps/room.json');
+                    WA.nav.goToRoom('../maps/room.json');
                 }
             }
         ]);
