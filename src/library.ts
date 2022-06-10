@@ -1,15 +1,20 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
-import { bootstrapExtra } from "@workadventure/scripting-api-extra";
+import { bootstrapExtra, Properties } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
 let currentPopup: any = undefined;
+const map = await WA.room.getTiledMap();
+const mapProperties = new Properties(map.properties);
+const mapName = mapProperties.getString('mapName');
+const orient = mapName?.split("-").pop();
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags);
+
 
     /** SOUND */
 
@@ -24,7 +29,7 @@ WA.onInit().then(() => {
         mute: false
     };
     pageFlip.play(configSound);
-    setInterval(() => pageFlip.play(configSound), 15000);
+    let ambience = setInterval(() => pageFlip.play(configSound), 15000);
 
     let music = WA.sound.loadSound("/assets/sfx/windswept-by-kevin-macleod-from-filmmusic-io.mp3");
     music.play(configSound);
@@ -36,11 +41,11 @@ WA.onInit().then(() => {
     {
         callback: () => {
             if(!muted) {
-                pageFlip.stop();
+                clearInterval(ambience);
                 music.stop();
                 muted = true;
             } else {
-                pageFlip.play(configSound);
+                ambience = setInterval(() => pageFlip.play(configSound), 15000);
                 music.play(configSound);
                 muted = false;
             }
@@ -51,7 +56,14 @@ WA.onInit().then(() => {
 
     WA.room.onEnterLayer('exitLayer').subscribe(() => {
         currentPopup = WA.ui.openPopup("exitPopup",
-            "Vous êtes dans la bibliothèque \"Homme × Femme\"",
+            `Vous êtes dans la bibliothèque "${
+                orient === "hetero" ? "Homme × Femme"
+                : orient === "gay" ? "Homme × Homme"
+                : orient === "lesbian" ? "Femme × Femme"
+                : orient === "bi" ? "Homme ou Femme"
+                : orient === "all" ? "Tous"
+                : "???"
+            }"`,
         [
             {
                 label: "Retourner à l'accueil",
@@ -66,13 +78,35 @@ WA.onInit().then(() => {
                 className: "primary",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom('../maps/room.json');
+                    WA.nav.goToRoom(`../maps/nightClub/nightClub-${orient}.json`);
                 }
             }
         ]);
     })
 
     WA.room.onLeaveLayer('exitLayer').subscribe(closePopUp);
+
+    /** QUESTIONS */
+
+    WA.room.onEnterLayer('questions/question1').subscribe(() => {
+        currentPopup = WA.ui.openPopup("question1", "Quel est ton top 3 de tes livres préférés ?", []);
+    });
+    WA.room.onLeaveLayer('questions/question1').subscribe(closePopUp);
+
+    WA.room.onEnterLayer('questions/question2').subscribe(() => {
+        currentPopup = WA.ui.openPopup("question2", "Quel est le dernier livre que tu as lu ?", []);
+    });
+    WA.room.onLeaveLayer('questions/question2').subscribe(closePopUp);
+
+    WA.room.onEnterLayer('questions/question3').subscribe(() => {
+        currentPopup = WA.ui.openPopup("question3", "Quel est ton style de littérature ?", []);
+    });
+    WA.room.onLeaveLayer('questions/question3').subscribe(closePopUp);
+
+    WA.room.onEnterLayer('questions/question4').subscribe(() => {
+        currentPopup = WA.ui.openPopup("question4", "Quel est le prochain livre que tu comptes lire ?", []);
+    });
+    WA.room.onLeaveLayer('questions/question4').subscribe(closePopUp);
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
