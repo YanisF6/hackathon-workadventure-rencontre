@@ -84,6 +84,25 @@ WA.onInit().then(() => {
 
     WA.room.onLeaveLayer('infoZone1').subscribe(closePopUp1)
 
+    // EVENTS DOORS
+    
+    WA.room.onEnterLayer('firstDoor').subscribe(() => {
+        WA.room.hideLayer("firstDoorClose");
+        
+    })
+    
+    WA.room.onLeaveLayer('firstDoor').subscribe(()=>{
+        WA.room.showLayer("firstDoorClose");
+    })
+
+    WA.room.onEnterLayer('SegondDoor').subscribe(() => {
+        WA.room.hideLayer("SegondDoorClose");
+    })
+    
+    WA.room.onLeaveLayer('SegondDoor').subscribe(()=>{
+        WA.room.showLayer("SegondDoorClose");
+    })
+
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
