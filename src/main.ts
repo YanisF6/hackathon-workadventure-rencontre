@@ -162,6 +162,15 @@ WA.onInit().then(() => {
                     ambience.stop();
                     music.stop();
                 }
+            },
+            {
+                label: "Détente zone",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/room2.json');
+                    ambience.stop();
+                    music.stop();
+                }
             }
         ]);
     })
