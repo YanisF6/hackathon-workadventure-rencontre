@@ -12,9 +12,10 @@ WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags);
 
-    /** AUDIO */
+    /** --- AUDIO --- */
 
     let ambience = WA.sound.loadSound("/assets/sfx/sfx-nature_ambience.ogg");
+    let music = WA.sound.loadSound("/assets/sfx/easy-lemon-by-kevin-macleod-from-filmmusic-io.mp3");
     let configSound = {
         volume: 0.1,
         loop: true,
@@ -24,15 +25,13 @@ WA.onInit().then(() => {
         seek: 0,
         mute: false
     };
+    let muted = false;
+    
     ambience.play(configSound);
-
-    let music = WA.sound.loadSound("/assets/sfx/easy-lemon-by-kevin-macleod-from-filmmusic-io.mp3");
     music.play({
         ...configSound,
         volume: 0.2
     });
-
-    let muted = false;
 
     /** MENU AUDIO */
     WA.ui.registerMenuCommand("Jouer / Couper la musique",
@@ -49,6 +48,20 @@ WA.onInit().then(() => {
             }
         }
     })
+
+    /** ------ */
+
+    /** --- DAY / NIGHT --- */
+
+    const now = new Date();
+    if(now.getHours() < 19)
+        WA.room.hideLayer("nightSky");
+    else
+        WA.room.showLayer("nightSky");
+
+    /** ------ */
+
+    /** --- POPUP --- */
 
     /** INFO */
     WA.room.onEnterLayer('infoZone').subscribe(() => {
@@ -93,7 +106,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-gay.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -121,7 +134,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-lesbian.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -149,7 +162,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-hetero.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -186,7 +199,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-bi.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -214,7 +227,7 @@ WA.onInit().then(() => {
                 label: "Bibliothèque",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/library/library.json');
+                    WA.nav.goToRoom('./maps/library/library-all.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -232,6 +245,8 @@ WA.onInit().then(() => {
     })
 
     WA.room.onLeaveLayer('allDoor').subscribe(closePopUp);
+
+    /** ------ */
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
