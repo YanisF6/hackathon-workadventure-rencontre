@@ -40,7 +40,6 @@ WA.onInit().then(() => {
 
     WA.room.onEnterLayer('SegondDoor').subscribe(() => {
         WA.room.hideLayer("SegondDoorClose");
-        
     })
     
     WA.room.onLeaveLayer('SegondDoor').subscribe(()=>{
