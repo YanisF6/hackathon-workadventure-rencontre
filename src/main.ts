@@ -19,6 +19,18 @@ WA.onInit().then(() => {
 
     WA.room.onLeaveLayer('infoZone').subscribe(closePopUp)
 
+    var mySound = WA.sound.loadSound("../assets/sound.mp3");
+    var config = {
+        volume : 1,
+        loop : false,
+        rate : 1,
+        detune : 1,
+        delay : 0,
+        seek : 0,
+        mute : false
+    }
+    mySound.play(config);
+
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
