@@ -24,7 +24,7 @@ WA.onInit().then(() => {
 
     var mySound = WA.sound.loadSound("/assets/sfx/nightclub.mp3");
     var config = {
-        volume : 1,
+        volume : 0.2,
         loop : false,
         rate : 1,
         detune : 1,
@@ -33,6 +33,10 @@ WA.onInit().then(() => {
         mute : false
     }
     mySound.play(config);
+
+    WA.room.onEnterLayer('exit').subscribe(() => {
+        mySound.stop();
+    })
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra()
