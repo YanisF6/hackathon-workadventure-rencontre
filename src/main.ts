@@ -13,7 +13,7 @@ WA.onInit().then(() => {
 
     /** --- AUDIO --- */
 
-    let ambience = WA.sound.loadSound("/assets/sfx/sfx-nature_ambience.ogg");
+    let ambience = WA.sound.loadSound("\./assets/sfx/sfx-nature_ambience.ogg");
     let music = WA.sound.loadSound("/assets/sfx/easy-lemon-by-kevin-macleod-from-filmmusic-io.mp3");
     let configSound = {
         volume: 0.1,
@@ -86,10 +86,10 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Boîte de nuit",
+                label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/loveWorld.json');
+                    WA.nav.goToRoom('./maps/museum_room.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -118,6 +118,15 @@ WA.onInit().then(() => {
                 className: "primary",
                 callback: () => {
                     WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum_room.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -158,6 +167,15 @@ WA.onInit().then(() => {
                     ambience.stop();
                     music.stop();
                 }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum_room.json');
+                    ambience.stop();
+                    music.stop();
+                }
             }
         ]);
     })
@@ -186,6 +204,15 @@ WA.onInit().then(() => {
                     ambience.stop();
                     music.stop();
                 }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum_room.json');
+                    ambience.stop();
+                    music.stop();
+                }
             }
         ]);
     })
@@ -211,6 +238,15 @@ WA.onInit().then(() => {
                 className: "primary",
                 callback: () => {
                     WA.nav.goToRoom('./maps/room.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum_room.json');
                     ambience.stop();
                     music.stop();
                 }
