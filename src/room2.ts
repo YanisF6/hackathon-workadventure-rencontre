@@ -78,13 +78,21 @@ WA.onInit().then(() => {
 
 	WA.room.onEnterLayer('infoZone1').subscribe(() => {
         currentPopup1 = WA.ui.openPopup("infoRoomPopup",
-            "Welcome to Hetero Room",
+            "Welcome to Love World",
         []);
     })
 
     WA.room.onLeaveLayer('infoZone1').subscribe(closePopUp1)
 
     // EVENTS DOORS
+
+    WA.room.onEnterLayer('principalDoor').subscribe(() => {
+        WA.room.hideLayer("thirdDoorClose");
+    })
+    
+    WA.room.onLeaveLayer('principalDoor').subscribe(()=>{
+        WA.room.showLayer("segondDoorClose");
+    })
     
     WA.room.onEnterLayer('firstDoor').subscribe(() => {
         WA.room.hideLayer("firstDoorClose");
@@ -95,12 +103,20 @@ WA.onInit().then(() => {
         WA.room.showLayer("firstDoorClose");
     })
 
-    WA.room.onEnterLayer('SegondDoor').subscribe(() => {
-        WA.room.hideLayer("SegondDoorClose");
+    WA.room.onEnterLayer('segondDoor').subscribe(() => {
+        WA.room.hideLayer("segondDoorClose");
     })
     
-    WA.room.onLeaveLayer('SegondDoor').subscribe(()=>{
-        WA.room.showLayer("SegondDoorClose");
+    WA.room.onLeaveLayer('segondDoor').subscribe(()=>{
+        WA.room.showLayer("segondDoorClose");
+    })
+
+    WA.room.onEnterLayer('thirdDoor').subscribe(() => {
+        WA.room.hideLayer("segondDoorClose");
+    })
+    
+    WA.room.onLeaveLayer('thirdDoor').subscribe(()=>{
+        WA.room.showLayer("thirdDoorClose");
     })
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
