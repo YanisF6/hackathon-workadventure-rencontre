@@ -55,8 +55,10 @@ WA.onInit().then(() => {
     /** EVENTS */
 
     WA.room.onEnterLayer('exitLayer').subscribe(() => {
+        console.log("test");
+        
         currentPopup = WA.ui.openPopup("exitPopup",
-            `Vous êtes dans la bibliothèque "${
+            `Vous êtes au musée "${
                 orient === "hetero" ? "Homme × Femme"
                 : orient === "gay" ? "Homme × Homme"
                 : orient === "lesbian" ? "Femme × Femme"
@@ -74,11 +76,19 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Musée",
+                label: "Aller à la bibliothèque",
                 className: "primary",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom(`../museum/museum-${orient}.json#fromInside`);
+                    WA.nav.goToRoom(`../maps/library/library-${orient}.json`);
+                }
+            },
+            {
+                label: "Aller à la boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    music.stop();
+                    WA.nav.goToRoom(`../maps/nightClub/nightClub-${orient}.json`);
                 }
             }
         ]);
@@ -86,27 +96,6 @@ WA.onInit().then(() => {
 
     WA.room.onLeaveLayer('exitLayer').subscribe(closePopUp);
 
-    /** QUESTIONS */
-
-    WA.room.onEnterLayer('questions/question1').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question1", "Quel est ton top 3 de tes livres préférés ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question1').subscribe(closePopUp);
-
-    WA.room.onEnterLayer('questions/question2').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question2", "Quel est le dernier livre que tu as lu ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question2').subscribe(closePopUp);
-
-    WA.room.onEnterLayer('questions/question3').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question3", "Quel est ton style de littérature ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question3').subscribe(closePopUp);
-
-    WA.room.onEnterLayer('questions/question4').subscribe(() => {
-        currentPopup = WA.ui.openPopup("question4", "Quel est le prochain livre que tu comptes lire ?", []);
-    });
-    WA.room.onLeaveLayer('questions/question4').subscribe(closePopUp);
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {

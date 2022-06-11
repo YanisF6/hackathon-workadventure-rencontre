@@ -13,7 +13,7 @@ WA.onInit().then(() => {
 
     /** --- AUDIO --- */
 
-    let ambience = WA.sound.loadSound("/assets/sfx/sfx-nature_ambience.ogg");
+    let ambience = WA.sound.loadSound("\./assets/sfx/sfx-nature_ambience.ogg");
     let music = WA.sound.loadSound("/assets/sfx/easy-lemon-by-kevin-macleod-from-filmmusic-io.mp3");
     let configSound = {
         volume: 0.1,
@@ -71,6 +71,11 @@ WA.onInit().then(() => {
 
     WA.room.onLeaveLayer('infoZone').subscribe(closePopUp)
 
+    WA.room.onEnterLayer('exit').subscribe(() => {
+        music.stop();
+        ambience.stop();
+    })
+
     /** GAY */
     WA.room.onEnterLayer('gayDoor').subscribe(() => {
         currentPopup = WA.ui.openPopup("gayDoorPopup",
@@ -86,10 +91,10 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Boîte de nuit",
+                label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/nightclub/nightclub.json');
+                    WA.nav.goToRoom('../maps/museum/museum-gay.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -114,10 +119,28 @@ WA.onInit().then(() => {
                 }
             },
             {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library-lesbian.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
                     WA.nav.goToRoom('./maps/nightclub/nightclub.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum/museum-lesbian.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -151,10 +174,10 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Détente zone",
+                label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room2.json');
+                    WA.nav.goToRoom('./maps/museum/museum-hetero.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -186,6 +209,15 @@ WA.onInit().then(() => {
                     ambience.stop();
                     music.stop();
                 }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum/museum-bi.json');
+                    ambience.stop();
+                    music.stop();
+                }
             }
         ]);
     })
@@ -211,6 +243,15 @@ WA.onInit().then(() => {
                 className: "primary",
                 callback: () => {
                     WA.nav.goToRoom('./maps/nightclub/nightclub.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
+                label: "Musée",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/museum/museum-all.json');
                     ambience.stop();
                     music.stop();
                 }
