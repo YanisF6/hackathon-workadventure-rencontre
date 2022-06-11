@@ -89,6 +89,15 @@ WA.onInit().then(() => {
                     ambience.stop();
                     music.stop();
                 }
+            },   
+            {
+                label: "Boîte de nuit",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/nightclub/nightclub-gay.json');
+                    ambience.stop();
+                    music.stop();
+                }
             },
             {
                 label: "Musée",
@@ -119,19 +128,10 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Bibliothèque",
-                className: "primary",
-                callback: () => {
-                    WA.nav.goToRoom('./maps/library/library-lesbian.json');
-                    ambience.stop();
-                    music.stop();
-                }
-            },
-            {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room.json');
+                    WA.nav.goToRoom('./maps/nightclub/nightclub-lesbian.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -168,7 +168,7 @@ WA.onInit().then(() => {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room.json');
+                    WA.nav.goToRoom('./maps/nightclub/nightclub-hetero.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -205,7 +205,7 @@ WA.onInit().then(() => {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room.json');
+                    WA.nav.goToRoom('./maps/nightclub/nightclub-bi.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -242,7 +242,7 @@ WA.onInit().then(() => {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room.json');
+                    WA.nav.goToRoom('./maps/nightclub/nightclub-all.json');
                     ambience.stop();
                     music.stop();
                 }
