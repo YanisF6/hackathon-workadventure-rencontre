@@ -89,7 +89,7 @@ WA.onInit().then(() => {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room.json');
+                    WA.nav.goToRoom('./maps/loveWorld.json');
                     ambience.stop();
                     music.stop();
                 }
