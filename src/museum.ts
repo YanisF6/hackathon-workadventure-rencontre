@@ -55,6 +55,8 @@ WA.onInit().then(() => {
     /** EVENTS */
 
     WA.room.onEnterLayer('exitLayer').subscribe(() => {
+        console.log("test");
+        
         currentPopup = WA.ui.openPopup("exitPopup",
             `Vous êtes au musée "${
                 orient === "hetero" ? "Homme × Femme"
@@ -71,6 +73,14 @@ WA.onInit().then(() => {
                 callback: () => {
                     music.stop();
                     WA.nav.goToRoom('../../map.json#fromInside');
+                }
+            },
+            {
+                label: "Aller à la bibliothèque",
+                className: "primary",
+                callback: () => {
+                    music.stop();
+                    WA.nav.goToRoom(`../maps/library/library-${orient}.json`);
                 }
             },
             {

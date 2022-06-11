@@ -71,6 +71,11 @@ WA.onInit().then(() => {
 
     WA.room.onLeaveLayer('infoZone').subscribe(closePopUp)
 
+    WA.room.onEnterLayer('exit').subscribe(() => {
+        music.stop();
+        ambience.stop();
+    })
+
     /** GAY */
     WA.room.onEnterLayer('gayDoor').subscribe(() => {
         currentPopup = WA.ui.openPopup("gayDoorPopup",
@@ -89,7 +94,7 @@ WA.onInit().then(() => {
                 label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/museum_room.json');
+                    WA.nav.goToRoom('../maps/museum/museum-gay.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -114,6 +119,15 @@ WA.onInit().then(() => {
                 }
             },
             {
+                label: "Bibliothèque",
+                className: "primary",
+                callback: () => {
+                    WA.nav.goToRoom('./maps/library/library-lesbian.json');
+                    ambience.stop();
+                    music.stop();
+                }
+            },
+            {
                 label: "Boîte de nuit",
                 className: "primary",
                 callback: () => {
@@ -126,7 +140,7 @@ WA.onInit().then(() => {
                 label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/museum_room.json');
+                    WA.nav.goToRoom('./maps/museum/museum-lesbian.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -160,19 +174,10 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Détente zone",
-                className: "primary",
-                callback: () => {
-                    WA.nav.goToRoom('./maps/loveWorld.json');
-                    ambience.stop();
-                    music.stop();
-                }
-            },
-            {
                 label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/museum_room.json');
+                    WA.nav.goToRoom('./maps/museum/museum-hetero.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -209,7 +214,7 @@ WA.onInit().then(() => {
                 label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/museum_room.json');
+                    WA.nav.goToRoom('./maps/museum/museum-bi.json');
                     ambience.stop();
                     music.stop();
                 }
@@ -246,7 +251,7 @@ WA.onInit().then(() => {
                 label: "Musée",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/museum_room.json');
+                    WA.nav.goToRoom('./maps/museum/museum-all.json');
                     ambience.stop();
                     music.stop();
                 }

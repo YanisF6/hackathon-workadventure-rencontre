@@ -74,11 +74,11 @@ WA.onInit().then(() => {
                 }
             },
             {
-                label: "Boîte de nuit",
+                label: "Musée",
                 className: "primary",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom(`../maps/nightClub/nightClub-${orient}.json`);
+                    WA.nav.goToRoom(`../museum/museum-${orient}.json#fromInside`);
                 }
             }
         ]);
