@@ -163,7 +163,7 @@ WA.onInit().then(() => {
                 label: "Détente zone",
                 className: "primary",
                 callback: () => {
-                    WA.nav.goToRoom('./maps/room2.json');
+                    WA.nav.goToRoom('./maps/loveWorld.json');
                     ambience.stop();
                     music.stop();
                 }

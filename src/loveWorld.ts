@@ -60,7 +60,7 @@ WA.onInit().then(() => {
                 className: "normal",
                 callback: () => {
                     music.stop();
-                    WA.nav.goToRoom('../../map.json#fromInside');
+                    WA.nav.goToRoom('../map.json');
                 }
             },
             {
@@ -87,11 +87,11 @@ WA.onInit().then(() => {
     // EVENTS DOORS
 
     WA.room.onEnterLayer('principalDoor').subscribe(() => {
-        WA.room.hideLayer("thirdDoorClose");
+        WA.room.hideLayer("principalDoorClose");
     })
     
     WA.room.onLeaveLayer('principalDoor').subscribe(()=>{
-        WA.room.showLayer("segondDoorClose");
+        WA.room.showLayer("principalDoorClose");
     })
     
     WA.room.onEnterLayer('firstDoor').subscribe(() => {
@@ -112,7 +112,7 @@ WA.onInit().then(() => {
     })
 
     WA.room.onEnterLayer('thirdDoor').subscribe(() => {
-        WA.room.hideLayer("segondDoorClose");
+        WA.room.hideLayer("thirdDoorClose");
     })
     
     WA.room.onLeaveLayer('thirdDoor').subscribe(()=>{
