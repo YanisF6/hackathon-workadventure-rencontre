@@ -82,7 +82,7 @@
                 {
                  "name":"exitUrl",
                  "type":"string",
-                 "value":"..\/..\/map.json"
+                 "value":"..\/map.json"
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -451,12 +451,6 @@
  "nextlayerid":15,
  "nextobjectid":6,
  "orientation":"orthogonal",
- "properties":[
-        {
-         "name":"exitUrl",
-         "type":"string",
-         "value":".\/map.json"
-        }],
  "renderorder":"right-down",
  "tiledversion":"1.8.5",
  "tileheight":32,
